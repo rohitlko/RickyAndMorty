@@ -6,10 +6,17 @@ import androidx.lifecycle.ViewModel
 class CharacterViewModel : ViewModel() {
 
     // step 1: create instanc eof live data to hold the to hold certain type of data
-    val textTest = MutableLiveData<String>()
+    val mutableLiveDataOne = MutableLiveData<String>()
+
+
+    // create another Live Data with a string
+
+    val mutableLiveDatatwo :MutableLiveData<String> by lazy {
+      MutableLiveData<String>()
+    }
 
     fun updateText() {
-        textTest.value = "123456"
+        mutableLiveDataOne.value = "123456"
     }
 
 

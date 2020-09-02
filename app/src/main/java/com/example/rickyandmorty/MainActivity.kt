@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.rickyandmorty.api.CharacterApi
 import com.example.rickyandmorty.model.Data
 import com.example.rickyandmorty.viewmodel.CharacterViewModel
+import kotlinx.android.synthetic.main.activity_main.nameTextView
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -26,19 +27,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val buttonOk = findViewById<Button>(R.id.btn_click)
-
         // create observer object to control live data change
-        val nameObserver = Observer<String> { testName ->
-            Log.d("Test", "$testName")
+        // Create the observer which updates the UI.
+        val nameObserver = Observer<String> { newName ->
+            Log.d("Test", "$newName")
+            nameTextView.text = newName
         }
-
-        // characterViewModel.textTest.observe(this, nameObserver)
 
         buttonOk.setOnClickListener {
             Toast.makeText(this, "Button is clicked", Toast.LENGTH_LONG).show()
-            characterViewModel.textTest.observe(this, nameObserver)
-            characterViewModel.textTest.value = "rohit"
-            characterViewModel.textTest.value = "Jonathan"
+            characterViewModel.mutableLiveDataOne.observe(this, nameObserver)
+            characterViewModel.mutableLiveDataOne.value = "rohit"
+            characterViewModel.mutableLiveDataOne.value = "Jonathan"
             characterViewModel.updateText()
         }
     }
